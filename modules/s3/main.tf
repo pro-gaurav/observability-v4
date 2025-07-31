@@ -1,20 +1,15 @@
-resource "aws_s3_bucket" "this" {
-  bucket = var.s3_bucket_name
-
-  versioning {
-    enabled = true
-  }
-
-  lifecycle_rule {
-    id      = "log"
-    enabled = true
-    expiration {
-      days = 90
-    }
-  }
+resource "aws_s3_bucket" "log_bucket" {
+  bucket = var.bucket_name
 
   tags = {
-    Environment = "Observability"
-    Region      = var.aws_region
+    Name        = "Observability Log Bucket"
+    ManagedBy   = "Terraform"
+  }
+}
+
+resource "aws_s3_bucket_versioning" "this" {
+  bucket = aws_s3_bucket.log_bucket.id
+  versioning_configuration {
+    status = "Enabled"
   }
 }

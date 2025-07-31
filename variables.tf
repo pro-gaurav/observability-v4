@@ -1,20 +1,42 @@
-variable "aws_region" { 
-    description = "AWS region to deploy in" 
-    }
+variable "aws_region" {
+  description = "The AWS region to deploy the resources in."
+  type        = string
+}
 
-variable "s3_bucket_name" { 
-    description = "S3 Bucket name" 
-    }
+variable "aws_account_id" {
+  description = "Your AWS Account ID, needed for IAM policy creation."
+  type        = string
+}
 
-variable "opensearch_domain" { 
-    description = "OpenSearch Domain name" 
-    }
+variable "s3_bucket_name" {
+  description = "The name of the S3 bucket for storing logs."
+  type        = string
+}
 
-variable "opensearch_version" { 
-    description = "OpenSearch Version" 
-    default = "OpenSearch_2.19" 
-    }
+variable "opensearch_domain_name" {
+  description = "The name for the Amazon OpenSearch domain."
+  type        = string
+}
 
-variable "ingestion_name" { 
-    description = "Name for the OS ingestion pipeline" 
-    }
+variable "opensearch_version" {
+  description = "The engine version for the OpenSearch domain."
+  type        = string
+  default     = "OpenSearch_2.11" # Note: 2.19 is not a valid version, 2.11 is a recent, stable one.
+}
+
+variable "opensearch_instance_type" {
+  description = "The instance type for the OpenSearch data nodes."
+  type        = string
+  default     = "t3.small.search"
+}
+
+variable "opensearch_instance_count" {
+  description = "The number of data nodes in the OpenSearch cluster."
+  type        = number
+  default     = 1
+}
+
+variable "ingestion_pipeline_name" {
+  description = "The name for the OpenSearch Ingestion pipeline."
+  type        = string
+}
