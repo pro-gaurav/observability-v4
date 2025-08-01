@@ -62,4 +62,7 @@ module "opensearch_ingestion" {
   opensearch_domain_arn = module.opensearch_domain.domain_arn
   opensearch_endpoint   = module.opensearch_domain.domain_endpoint
   s3_bucket_arn         = module.s3_bucket.bucket_arn
+
+  # --- ADD THIS LINE ---
+  s3_bucket_id = module.s3_bucket.bucket_id
 }
