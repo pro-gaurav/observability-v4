@@ -21,14 +21,11 @@ resource "aws_opensearch_domain" "this" {
     enabled = true
   }
 
-  # --- CORRECTION IS HERE ---
-  # Enforce HTTPS, which is a mandatory requirement when using advanced security.
   domain_endpoint_options {
     enforce_https       = true
     tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
   }
 
-  # Enable Fine-Grained Access Control (FGAC) to meet AWS security requirements.
   advanced_security_options {
     enabled                        = true
     internal_user_database_enabled = true
@@ -38,17 +35,28 @@ resource "aws_opensearch_domain" "this" {
     }
   }
 
-  # This policy is now restrictive, only allowing access from within your AWS account.
-  # FGAC will handle the fine-grained data access permissions.
+  # --- CORRECTION IS HERE ---
+  # The access policy now contains two statements.
   access_policies = jsonencode({
     Version = "2012-10-17",
     Statement = [
+      # Statement 1: The original policy allowing full access from within your AWS account.
       {
         Effect = "Allow",
         Principal = {
           AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
         },
         Action   = "es:*",
+        Resource = "arn:aws:es:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:domain/${var.domain_name}/*"
+      },
+      # Statement 2: The new policy allowing anonymous users to access ONLY the
+      # HTTP GET method to load the dashboard's web interface.
+      {
+        Effect = "Allow",
+        Principal = {
+          AWS = "*"
+        },
+        Action   = "es:ESHttp*",
         Resource = "arn:aws:es:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:domain/${var.domain_name}/*"
       }
     ]
