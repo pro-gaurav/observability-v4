@@ -1,5 +1,5 @@
 # The primary resource for the OpenSearch Ingestion Pipeline
-resource "aws_opensearch_ingestion_pipeline" "this" {
+resource "aws_osis_pipeline" "this" {
   pipeline_name = var.pipeline_name
 
   # Corrected pipeline configuration body.
