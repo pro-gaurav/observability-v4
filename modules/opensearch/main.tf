@@ -21,15 +21,26 @@ resource "aws_opensearch_domain" "this" {
     enabled = true
   }
 
-  # WARNING: This access policy allows public access. 
-  # For production, restrict this to specific IPs or VPCs.
+  # --- CORRECTION IS HERE ---
+  # Enable Fine-Grained Access Control (FGAC) to meet AWS security requirements.
+  advanced_security_options {
+    enabled                        = true
+    internal_user_database_enabled = true
+    master_user_options {
+      master_user_name     = var.master_user_name
+      master_user_password = var.master_user_password
+    }
+  }
+
+  # This policy is now restrictive, only allowing access from within your AWS account.
+  # FGAC will handle the fine-grained data access permissions.
   access_policies = jsonencode({
     Version = "2012-10-17",
     Statement = [
       {
         Effect = "Allow",
         Principal = {
-          AWS = "*"
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
         },
         Action   = "es:*",
         Resource = "arn:aws:es:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:domain/${var.domain_name}/*"

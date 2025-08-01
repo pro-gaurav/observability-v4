@@ -40,3 +40,15 @@ variable "ingestion_pipeline_name" {
   description = "The name for the OpenSearch Ingestion pipeline."
   type        = string
 }
+
+variable "opensearch_master_username" {
+  description = "The master username for the OpenSearch domain."
+  type        = string
+  sensitive   = true
+}
+
+variable "opensearch_master_password" {
+  description = "The master password for the OpenSearch domain."
+  type        = string
+  sensitive   = true
+}

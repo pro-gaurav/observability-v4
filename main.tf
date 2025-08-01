@@ -36,7 +36,13 @@ module "opensearch_domain" {
   opensearch_version = var.opensearch_version
   instance_type      = var.opensearch_instance_type
   instance_count     = var.opensearch_instance_count
+
+  # --- CORRECTION IS HERE ---
+  # Pass the new master user credentials to the module.
+  master_user_name     = var.opensearch_master_username
+  master_user_password = var.opensearch_master_password
 }
+
 
 # -----------------------------------------------------------------------------
 # MODULE: OpenSearch Ingestion Pipeline
