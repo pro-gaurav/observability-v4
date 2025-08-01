@@ -3,8 +3,8 @@ resource "aws_opensearch_domain" "this" {
   engine_version = var.opensearch_version
 
   cluster_config {
-    instance_type  = var.instance_type
-    instance_count = var.instance_count
+    instance_type          = var.instance_type
+    instance_count         = var.instance_count
     zone_awareness_enabled = var.instance_count > 1 ? true : false
   }
 
@@ -20,7 +20,7 @@ resource "aws_opensearch_domain" "this" {
   encrypt_at_rest {
     enabled = true
   }
-  
+
   # WARNING: This access policy allows public access. 
   # For production, restrict this to specific IPs or VPCs.
   access_policies = jsonencode({
@@ -31,7 +31,7 @@ resource "aws_opensearch_domain" "this" {
         Principal = {
           AWS = "*"
         },
-        Action = "es:*",
+        Action   = "es:*",
         Resource = "arn:aws:es:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:domain/${var.domain_name}/*"
       }
     ]

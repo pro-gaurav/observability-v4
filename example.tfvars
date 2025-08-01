@@ -12,9 +12,9 @@ s3_bucket_name = "my-unique-observability-logs-2025" # <--- IMPORTANT: S3 bucket
 # -----------------------------------------------------------
 # OpenSearch Domain Configuration
 # -----------------------------------------------------------
-opensearch_domain_name = "observability-domain"
-opensearch_instance_type = "t3.medium.search" # t3.small is good for testing, t3.medium for light use
-opensearch_instance_count = 2 # For multi-AZ, use 2 or more
+opensearch_domain_name    = "observability-domain"
+opensearch_instance_type  = "t3.medium.search" # t3.small is good for testing, t3.medium for light use
+opensearch_instance_count = 2                  # For multi-AZ, use 2 or more
 
 # -----------------------------------------------------------
 # OpenSearch Ingestion Pipeline Configuration
