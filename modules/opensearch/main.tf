@@ -22,6 +22,12 @@ resource "aws_opensearch_domain" "this" {
   }
 
   # --- CORRECTION IS HERE ---
+  # Enforce HTTPS, which is a mandatory requirement when using advanced security.
+  domain_endpoint_options {
+    enforce_https       = true
+    tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
+  }
+
   # Enable Fine-Grained Access Control (FGAC) to meet AWS security requirements.
   advanced_security_options {
     enabled                        = true
