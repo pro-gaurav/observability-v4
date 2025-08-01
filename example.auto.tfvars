@@ -2,7 +2,7 @@
 # AWS Configuration
 # -----------------------------------------------------------
 aws_region     = "us-east-1"
-aws_account_id = "123456789012" # <--- IMPORTANT: Replace with your actual AWS Account ID
+aws_account_id = "995673420636" # <--- IMPORTANT: Replace with your actual AWS Account ID
 
 # -----------------------------------------------------------
 # S3 Bucket Configuration
