@@ -114,7 +114,8 @@ s3-log-pipeline:
   sink:
     - opensearch:
         hosts: [ "https://${var.opensearch_endpoint}" ]
-        index: "s3-logs-%{yyyy.MM.dd}"
+        index: "s3-logs-%%{yyyy.MM.dd}"
+        "document_id": "uuid"
         aws:
           region: "${var.aws_region}"
           sts_role_arn: "${aws_iam_role.ingestion_role.arn}"
