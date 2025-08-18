@@ -5,6 +5,7 @@ resource "aws_s3_bucket" "log_bucket" {
     Name      = "Observability Log Bucket"
     ManagedBy = "Terraform"
   }
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_versioning" "this" {
