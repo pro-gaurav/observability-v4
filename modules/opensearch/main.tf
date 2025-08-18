@@ -56,7 +56,7 @@ resource "aws_opensearch_domain" "this" {
         Principal = {
           AWS = "*"
         },
-        Action   = "es:ESHttp*",
+        Action   = ["es:ESHttp*", "es:Http*", "es:DescribeDomain"]
         Resource = "arn:aws:es:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:domain/${var.domain_name}/*"
       }
     ]
